@@ -15,7 +15,7 @@ namespace AppTimeCounter {
         //retrieves the identifier of the thread that created the specified window
         public static extern UInt32 GetWindowThreadProcessId(IntPtr hwnd, ref Int32 pid);
 
-        public static Dictionary<string, AppModel> AppDictionary = new Dictionary<string, AppModel>();
+        public static Dictionary<string, DateTime> AppDictionary = new Dictionary<string, DateTime>();
 
         public static void Work() {
             while (true) {
@@ -23,18 +23,23 @@ namespace AppTimeCounter {
                 int pid = 0;
                 GetWindowThreadProcessId(h, ref pid);
                 Process p = Process.GetProcessById(pid);
-                DateTime currentTime = DateTime.Now;
+                
                 if (AppDictionary.ContainsKey(p.ProcessName)) {
-                    AppDictionary[p.ProcessName] = DateTime.Now.Subtract(AppDictionary[p.ProcessName]);
+                    AppDictionary[p.ProcessName] = AppDictionary[p.ProcessName].AddSeconds(1);
                 }
                 else {
-                    AppDictionary.Add(p.ProcessName, new AppModel());
+                    AppDictionary.Add(p.ProcessName, new DateTime().AddSeconds(1));
                 }
-                Console.WriteLine("pid: {0}; window: {1}", pid, p.ProcessName);
-                Thread.Sleep(1000);
+                Thread.Sleep(900);
+                Display();
             }
         }
-
+        public static void Display() {
+            Console.Clear();
+            foreach(string s in AppDictionary.Keys) {
+                Console.WriteLine($"App: {s}; Time: {AppDictionary[s].ToLongTimeString()}");
+            }
+        }
         static void Main(string[] args) {
             ConsoleKeyInfo cki;
 
@@ -45,7 +50,7 @@ namespace AppTimeCounter {
 
             do {
                 cki = Console.ReadKey();
-                Console.Clear();
+      
                 switch (cki.Key) {
                     case ConsoleKey.Escape:
                         break;
