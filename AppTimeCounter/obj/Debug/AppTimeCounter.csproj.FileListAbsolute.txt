@@ -1,0 +1,7 @@
+D:\prog\VSProj\GIT\AppTimeCounter\AppTimeCounter\bin\Debug\AppTimeCounter.exe.config
+D:\prog\VSProj\GIT\AppTimeCounter\AppTimeCounter\bin\Debug\AppTimeCounter.exe
+D:\prog\VSProj\GIT\AppTimeCounter\AppTimeCounter\bin\Debug\AppTimeCounter.pdb
+D:\prog\VSProj\GIT\AppTimeCounter\AppTimeCounter\obj\Debug\AppTimeCounter.csprojResolveAssemblyReference.cache
+D:\prog\VSProj\GIT\AppTimeCounter\AppTimeCounter\obj\Debug\AppTimeCounter.csproj.CoreCompileInputs.cache
+D:\prog\VSProj\GIT\AppTimeCounter\AppTimeCounter\obj\Debug\AppTimeCounter.exe
+D:\prog\VSProj\GIT\AppTimeCounter\AppTimeCounter\obj\Debug\AppTimeCounter.pdb
