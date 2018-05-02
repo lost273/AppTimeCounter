@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace AppTimeCounter {
     class Program {
@@ -13,14 +15,32 @@ namespace AppTimeCounter {
         //retrieves the identifier of the thread that created the specified window
         public static extern UInt32 GetWindowThreadProcessId(IntPtr hwnd, ref Int32 pid);
 
-        static void Main(string[] args) {
-            IntPtr h = GetForegroundWindow();
-            int pid = 0;
-            GetWindowThreadProcessId(h, ref pid);
-            Process p = Process.GetProcessById(pid);
-            Console.Write("pid: {0}; window: {1}", pid, p.ProcessName);
+        public static Dictionary<string, DateTime> AppDictionary = new Dictionary<string, DateTime>();
 
+        public static void Work() {
+            while (true) {
+                IntPtr h = GetForegroundWindow();
+                int pid = 0;
+                GetWindowThreadProcessId(h, ref pid);
+                Process p = Process.GetProcessById(pid);
+
+                if (AppDictionary.ContainsKey(p.ProcessName)) {
+
+                }
+
+                Console.WriteLine("pid: {0}; window: {1}", pid, p.ProcessName);
+                Thread.Sleep(1000);
+            }
+        }
+
+        static void Main(string[] args) {
             ConsoleKeyInfo cki;
+
+            Thread thread = new Thread(Work) {
+                IsBackground = true
+            };
+            thread.Start();
+
             do {
                 cki = Console.ReadKey();
                 Console.Clear();
