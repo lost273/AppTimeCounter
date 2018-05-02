@@ -16,6 +16,7 @@ namespace AppTimeCounter {
         public static extern UInt32 GetWindowThreadProcessId(IntPtr hwnd, ref Int32 pid);
 
         public static Dictionary<string, DateTime> AppDictionary = new Dictionary<string, DateTime>();
+        public static Dictionary<string, TimeTrap> AppDictionaryTrap = new Dictionary<string, TimeTrap>();
 
         public static void Work() {
             while (true) {
@@ -26,9 +27,11 @@ namespace AppTimeCounter {
                 
                 if (AppDictionary.ContainsKey(p.ProcessName)) {
                     AppDictionary[p.ProcessName] = AppDictionary[p.ProcessName].AddSeconds(1);
+
                 }
                 else {
                     AppDictionary.Add(p.ProcessName, new DateTime().AddSeconds(1));
+                    AppDictionaryTrap.Add(p.ProcessName, new TimeTrap());
                 }
                 Thread.Sleep(900);
                 Display();
